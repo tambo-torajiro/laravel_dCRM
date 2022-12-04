@@ -1,6 +1,6 @@
 <template>
     <div>
-        <img src="/images/tora2.png" />
+        <img src="/images/tora.png" />
     </div>
     <!-- <svg viewBox="0 0 316 316" xmlns="http://www.w3.org/2000/svg">
         <path

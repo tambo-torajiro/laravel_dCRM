@@ -5,11 +5,16 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\CustomerController;
 
 
 
 Route::resource('items',ItemController::class)
     ->middleware(['auth', 'verified']);
+
+Route::resource('customers',CustomerController::class)
+    ->middleware(['auth', 'verified']);
+
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
