@@ -2,10 +2,10 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Inertia } from "@inertiajs/inertia";
 import { Head, Link } from "@inertiajs/inertia-vue3";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import FlashMessage from "@/Components/FlashMessage.vue";
 import Pagination from "@/Components/Pagination.vue";
-
+import dayjs from "dayjs";
 defineProps({ customers: Object });
 
 const search = ref("");
@@ -52,6 +52,26 @@ const searchCustomers = () => {
                                     class="flex px-6 py-2 ml-auto text-white bg-indigo-500 border-0 rounded focus:outline-none hover:bg-indigo-600"
                                     >顧客登録</Link
                                 >
+                            </div>
+
+                            <div
+                                class="flex flex-wrap justify-between w-full pl-4 mx-auto my-4 lg:w-2/3"
+                            >
+                                <div>
+                                    全<span class="px-2 font-bold">{{
+                                        customers.total
+                                    }}</span
+                                    >件のデータ
+                                </div>
+                                <div>
+                                    <span class="px-2 font-bold">{{
+                                        customers.last_page
+                                    }}</span
+                                    >ページ中<span class="px-2 font-bold">{{
+                                        customers.current_page
+                                    }}</span
+                                    >ページ目を表示中
+                                </div>
                             </div>
                             <div class="w-full mx-auto overflow-auto lg:w-2/3">
                                 <table
@@ -122,7 +142,13 @@ const searchCustomers = () => {
                                             <td
                                                 class="px-4 py-3 text-lg text-gray-900"
                                             >
-                                                {{ customer.created_at }}
+                                                {{
+                                                    dayjs(
+                                                        customer.created_at
+                                                    ).format(
+                                                        "YYYY-MM-DD HH:mm:ss"
+                                                    )
+                                                }}
                                             </td>
                                         </tr>
                                     </tbody>
