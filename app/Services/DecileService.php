@@ -1,31 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Services;
 
-use Illuminate\Http\Request;
-use Inertia\Inertia;
-use App\Models\Order;
 use Illuminate\Support\Facades\DB;
 
-class AnalysisController extends Controller
+class DecileService
 {
-    public function index()
+    public static function decile($subQuery)
     {
-
-        $startDate = '2022-12-01';
-        $endDate = '2022-12-14';
-
-
-
-        return Inertia::render('Analysis');
-    }
-
-    public function decile()
-    {
-
-        $startDate = '2022-12-01';
-        $endDate = '2022-12-14';
-
         // 購入ID毎にまとめる
         $subQuery = $subQuery->groupBy('id')
         ->selectRaw('id,customer_id, customer_name, SUM(subtotal) as totalPerPurchase');
@@ -86,6 +68,11 @@ class AnalysisController extends Controller
         ->selectRaw('decile, average, totalPerGroup,round(100 * totalPerGroup / @total, 1) as totalRatio')
         ->get();
 
-        // dd($data);
+        $labels = $data->pluck('decile');
+        $totals = $data->pluck('totalPerGroup');
+
+        return [$data,$labels,$totals];
+
     }
+
 }
