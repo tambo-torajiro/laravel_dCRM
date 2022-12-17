@@ -18,7 +18,7 @@ const barData = reactive({
         {
             label: "売上",
             data: totals,
-            backgroundColor: "rgb(75,192,192)",
+            backgroundColor: "rgb(153,50,204)",
             tension: 0.1,
         },
     ],
